@@ -72,20 +72,22 @@ python app.py
 
 
 
+## 📖 API Contract
 
-📖 API Contract
+### 🔹 POST `/predict`
 
-POST /predict
+---
 
-Request (exact sample payload) : 
+### 📝 Request (exact sample payload)
 
+```json
 {
-  "name": "Ritika",  
-  "birth_date": "1995-08-20",  
-  "birth_time": "14:30",  
-  "birth_place": "Jaipur, India",  
+  "name": "Ritika",
+  "birth_date": "1995-08-20",
+  "birth_time": "14:30",
+  "birth_place": "Jaipur, India",
   "language": "en"
-  }
+}
 
 Response:
 {
