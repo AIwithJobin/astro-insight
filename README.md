@@ -28,7 +28,15 @@ Client ──HTTP──► FastAPI ─►Validation─►Zodiac ─►LLM(Gemini
 | **Response**    | FastAPI serializes `{zodiac, insight, language}` in < 1 s                                                      | **FastAPI**                |
 
 
-1 . Ingress – FastAPI route /predict receives a POST with the exact sample JSON {name, birth_date, birth_time, birth_place, language}.
+1. **Ingress** – FastAPI route `/predict` receives a `POST` request with JSON:  
+   ```json
+   {
+     "name": "John Doe",
+     "birth_date": "1990-01-01",
+     "birth_time": "12:30",
+     "birth_place": "New York",
+     "language": "en"
+   }
 2 . Validation – Pydantic BirthData schema guarantees type-safe input; any malformed payload is rejected with 422.
 3 . Zodiac layer – a deterministic date-range lookup returns the sign in O(1) without any network call.
 4 . LLM layer – LangChain’s ChatGoogleGenerativeAI wraps Gemini 1.5-Flash; we prompt it with the sign + full birth context and cap output to 40 tokens.
