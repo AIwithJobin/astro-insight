@@ -37,33 +37,35 @@ Client ──HTTP──► FastAPI ─►Validation─►Zodiac ─►LLM(Gemini
      "birth_place": "New York",
      "language": "en"
    }
-Validation – Pydantic BirthData schema guarantees type-safe input; malformed payloads are rejected with 422.
+2 . Validation – Pydantic BirthData schema guarantees type-safe input; malformed payloads are rejected with 422.
 
-Zodiac layer – deterministic date-range lookup returns the zodiac sign in O(1) without any network call.
+3 . Zodiac layer – deterministic date-range lookup returns the zodiac sign in O(1) without any network call.
 
-LLM layer – LangChain’s ChatGoogleGenerativeAI wraps Gemini 1.5-Flash; prompted with the sign + birth context and capped at 40 tokens.
+4 . LLM layer – LangChain’s ChatGoogleGenerativeAI wraps Gemini 1.5-Flash; prompted with the sign + birth context and capped at 40 tokens.
 
-Translation layer – if language == "hi", calls Google Translate (googletrans==3.1.0a0); results are LRU-cached for 1 hour keyed on (sign, lang).
+5 . Translation layer – if language == "hi", calls Google Translate (googletrans==3.1.0a0); results are LRU-cached for 1 hour keyed on (sign, lang).
 
-Caching – in-memory dictionary keyed by (sign, lang) prevents duplicate Gemini/Translate calls, reducing cost and latency.
+6 . Caching – in-memory dictionary keyed by (sign, lang) prevents duplicate Gemini/Translate calls, reducing cost and latency.
 
-Response – FastAPI serializes {zodiac, insight, language} and returns it in < 1s total round-trip.
+7 . Response – FastAPI serializes {zodiac, insight, language} and returns it in < 1s total round-trip.
 
 
-# 1. clone
+### 1. clone
 git clone https://github.com/<you>/astro-insight.git
+
 cd astro-insight
 
-# 2. install
+### 2. install
 python -m venv .venv && . .venv/bin/activate   # Windows: .venv\Scripts\activate
+
 pip install -r requirements.txt
 
-# 3. secrets
+### 3. secrets
 echo "GEMINI_API_KEY=YOUR_KEY" > .env
 
-# 4. run
+### 4. run
 python app.py
-# → http://localhost:8000/docs  (interactive docs)
+### → http://localhost:8000/docs  (interactive docs)
 
 
 
@@ -71,13 +73,21 @@ python app.py
 📖 API Contract
 
 POST /predict
+
 Request (exact sample payload) : 
+
 {
+
   "name": "Ritika",
+  
   "birth_date": "1995-08-20",
+  
   "birth_time": "14:30",
+  
   "birth_place": "Jaipur, India",
+  
   "language": "en"
+  
 }
 
 Response:
