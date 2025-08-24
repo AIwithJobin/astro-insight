@@ -53,18 +53,20 @@ Client ──HTTP──► FastAPI ─►Validation─►Zodiac ─►LLM(Gemini
 
 
 
-### 1. clone
+## 1. clone
 git clone https://github.com/<you>/astro-insight.git
+
 cd astro-insight
 
-### 2. install
+## 2. install
 python -m venv .venv && . .venv/bin/activate   # Windows: .venv\Scripts\activate
+
 pip install -r requirements.txt
 
-### 3. secrets
+## 3. secrets
 echo "GEMINI_API_KEY=YOUR_KEY" > .env
 
-### 4. run
+## 4. run
 python app.py
 ### → http://localhost:8000/docs  (interactive docs)
 
