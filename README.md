@@ -93,8 +93,9 @@ python app.py
 
 ### 📝 Response 
 
+---
+
 ```json
-Response:
 {
   "zodiac": "Leo",
   "insight": "Ritika, your Leo heart radiates courage today—lead with kindness and manifest joy.",
