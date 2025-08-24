@@ -50,14 +50,15 @@ Client ──HTTP──► FastAPI ─►Validation─►Zodiac ─►LLM(Gemini
 7 . Response – FastAPI serializes {zodiac, insight, language} and returns it in < 1s total round-trip.
 
 
+
+
+
 ### 1. clone
 git clone https://github.com/<you>/astro-insight.git
-
 cd astro-insight
 
 ### 2. install
 python -m venv .venv && . .venv/bin/activate   # Windows: .venv\Scripts\activate
-
 pip install -r requirements.txt
 
 ### 3. secrets
@@ -77,18 +78,12 @@ POST /predict
 Request (exact sample payload) : 
 
 {
-
-  "name": "Ritika",
-  
-  "birth_date": "1995-08-20",
-  
-  "birth_time": "14:30",
-  
-  "birth_place": "Jaipur, India",
-  
+  "name": "Ritika",  
+  "birth_date": "1995-08-20",  
+  "birth_time": "14:30",  
+  "birth_place": "Jaipur, India",  
   "language": "en"
-  
-}
+  }
 
 Response:
 {
