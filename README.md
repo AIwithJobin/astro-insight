@@ -88,10 +88,16 @@ python app.py
   "birth_place": "Jaipur, India",
   "language": "en"
 }
+```
 
+
+### 📝 Response 
+
+```json
 Response:
 {
   "zodiac": "Leo",
   "insight": "Ritika, your Leo heart radiates courage today—lead with kindness and manifest joy.",
   "language": "en"
 }
+```
