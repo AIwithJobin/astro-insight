@@ -28,13 +28,13 @@ Client ──HTTP──► FastAPI ─►Validation─►Zodiac ─►LLM(Gemini
 | **Response**    | FastAPI serializes `{zodiac, insight, language}` in < 1 s                                                      | **FastAPI**                |
 
 
-Ingress – FastAPI route /predict receives a POST with the exact sample JSON {name, birth_date, birth_time, birth_place, language}.
-Validation – Pydantic BirthData schema guarantees type-safe input; any malformed payload is rejected with 422.
-Zodiac layer – a deterministic date-range lookup returns the sign in O(1) without any network call.
-LLM layer – LangChain’s ChatGoogleGenerativeAI wraps Gemini 1.5-Flash; we prompt it with the sign + full birth context and cap output to 40 tokens.
-Translation layer – if language == "hi" we call Google-Translate via googletrans==3.1.0a0; results are LRU-cached for one hour keyed on (sign, lang).
-Caching – in-memory dict keyed by (sign, lang) prevents duplicate Gemini/Translate calls, saving cost and latency.
-Response – FastAPI serializes {zodiac, insight, language} and returns it in < 1 s total round-trip.
+1 . Ingress – FastAPI route /predict receives a POST with the exact sample JSON {name, birth_date, birth_time, birth_place, language}.
+2 . Validation – Pydantic BirthData schema guarantees type-safe input; any malformed payload is rejected with 422.
+3 . Zodiac layer – a deterministic date-range lookup returns the sign in O(1) without any network call.
+4 . LLM layer – LangChain’s ChatGoogleGenerativeAI wraps Gemini 1.5-Flash; we prompt it with the sign + full birth context and cap output to 40 tokens.
+5 . Translation layer – if language == "hi" we call Google-Translate via googletrans==3.1.0a0; results are LRU-cached for one hour keyed on (sign, lang).
+6 . Caching – in-memory dict keyed by (sign, lang) prevents duplicate Gemini/Translate calls, saving cost and latency.
+7 . Response – FastAPI serializes {zodiac, insight, language} and returns it in < 1 s total round-trip.
 
 
 # 1. clone
